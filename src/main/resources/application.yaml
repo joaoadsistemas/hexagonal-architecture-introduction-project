@@ -1,6 +1,8 @@
 spring:
   application:
     name: hexagonal-architecture-introduction-project
+  mongodb:
+    uri: "mongodb://localhost:27017/hexagonal-introduction-project"
 client:
   address:
     url: "http://localhost:8070/addresses"
