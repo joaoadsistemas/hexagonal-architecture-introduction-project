@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class InsertCustumerAdapter implements InsertCustomerOutputPort {
+public class InsertCustomerAdapter implements InsertCustomerOutputPort {
 
     private final CustomerRepository customerRepository;
     private final CustomerEntityMapper customerEntityMapper;
