@@ -6,6 +6,7 @@ import com.joao.hexagonal_architecture_introduction_project.adapters.in.controll
 import com.joao.hexagonal_architecture_introduction_project.application.core.domain.Customer;
 import com.joao.hexagonal_architecture_introduction_project.application.ports.in.FindCustomerByIdInputPort;
 import com.joao.hexagonal_architecture_introduction_project.application.ports.in.InsertCustomerInputPort;
+import com.joao.hexagonal_architecture_introduction_project.application.ports.in.UpdateCustomerInputPort;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -16,9 +17,10 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class CustomerController {
 
+    private final CustomerMapper customerMapper;
     private final InsertCustomerInputPort insertCustomerInputPort;
     private final FindCustomerByIdInputPort findCustomerByIdInputPort;
-    private final CustomerMapper customerMapper;
+    private final UpdateCustomerInputPort updateCostumerInputPort;
 
     @PostMapping
     public ResponseEntity<Void> insert(@Valid @RequestBody CustomerRequest request) {
@@ -30,6 +32,14 @@ public class CustomerController {
     @GetMapping("/{id}")
     public ResponseEntity<CustomerResponse> insert(@PathVariable String id) {
         return ResponseEntity.ok().body(customerMapper.toCustomerResponse(findCustomerByIdInputPort.find(id)));
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Void> update(@PathVariable String id, @RequestBody @Valid CustomerRequest request) {
+        Customer costumer = customerMapper.toCustomer(request);
+        costumer.setId(id);
+        updateCostumerInputPort.update(costumer, request.zipCode());
+        return ResponseEntity.noContent().build();
     }
 
 }
