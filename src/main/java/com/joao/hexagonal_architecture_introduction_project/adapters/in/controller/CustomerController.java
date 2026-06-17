@@ -4,6 +4,7 @@ import com.joao.hexagonal_architecture_introduction_project.adapters.in.controll
 import com.joao.hexagonal_architecture_introduction_project.adapters.in.controller.request.CustomerRequest;
 import com.joao.hexagonal_architecture_introduction_project.adapters.in.controller.response.CustomerResponse;
 import com.joao.hexagonal_architecture_introduction_project.application.core.domain.Customer;
+import com.joao.hexagonal_architecture_introduction_project.application.ports.in.DeleteCustomerInputPort;
 import com.joao.hexagonal_architecture_introduction_project.application.ports.in.FindCustomerByIdInputPort;
 import com.joao.hexagonal_architecture_introduction_project.application.ports.in.InsertCustomerInputPort;
 import com.joao.hexagonal_architecture_introduction_project.application.ports.in.UpdateCustomerInputPort;
@@ -21,6 +22,7 @@ public class CustomerController {
     private final InsertCustomerInputPort insertCustomerInputPort;
     private final FindCustomerByIdInputPort findCustomerByIdInputPort;
     private final UpdateCustomerInputPort updateCostumerInputPort;
+    private final DeleteCustomerInputPort deleteCustomerInputPort;
 
     @PostMapping
     public ResponseEntity<Void> insert(@Valid @RequestBody CustomerRequest request) {
@@ -39,6 +41,12 @@ public class CustomerController {
         Customer costumer = customerMapper.toCustomer(request);
         costumer.setId(id);
         updateCostumerInputPort.update(costumer, request.zipCode());
+        return ResponseEntity.noContent().build();
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable String id) {
+        deleteCustomerInputPort.delete(id);
         return ResponseEntity.noContent().build();
     }
 
