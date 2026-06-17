@@ -1,5 +1,6 @@
 package com.joao.hexagonal_architecture_introduction_project.config;
 
+import com.joao.hexagonal_architecture_introduction_project.adapters.out.FindCustomerByIdAdapter;
 import com.joao.hexagonal_architecture_introduction_project.application.core.useCase.FindCustomerByIdUseCase;
 import com.joao.hexagonal_architecture_introduction_project.application.core.useCase.InsertCustomerUseCase;
 import com.joao.hexagonal_architecture_introduction_project.application.ports.out.FindAddressByZipCodeOutputPort;
@@ -12,8 +13,8 @@ import org.springframework.context.annotation.Configuration;
 public class FindByIdCustomerConfig {
 
     @Bean
-    public FindCustomerByIdUseCase insertCustomerUseCase(
-            FindCustomerByIdOutputPort findCustomerByIdOutputPort) {
-        return new FindCustomerByIdUseCase(findCustomerByIdOutputPort);
+    public FindCustomerByIdUseCase findCustomerByIdUseCase(
+            FindCustomerByIdAdapter findCustomerByIdAdapter) {
+        return new FindCustomerByIdUseCase(findCustomerByIdAdapter);
     }
 }
