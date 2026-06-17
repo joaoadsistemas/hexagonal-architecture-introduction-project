@@ -11,14 +11,14 @@ public class UpdateCustomerUseCase implements UpdateCustomerInputPort {
 
     private final FindCustomerByIdInputPort findCustomerByIdInputPort;
     private final FindAddressByZipCodeOutputPort findAddressByZipCodeOutputPort;
-    private final UpdateCustomerOutputPort updateCostumerOutputPort;
+    private final UpdateCustomerOutputPort updateCustomerOutputPort;
 
     public UpdateCustomerUseCase(FindCustomerByIdInputPort findCustomerByIdInputPort,
                                  FindAddressByZipCodeOutputPort findAddressByZipCodeOutputPort,
-                                 UpdateCustomerOutputPort updateCostumerOutputPort) {
+                                 UpdateCustomerOutputPort updateCustomerOutputPort) {
         this.findCustomerByIdInputPort = findCustomerByIdInputPort;
         this.findAddressByZipCodeOutputPort = findAddressByZipCodeOutputPort;
-        this.updateCostumerOutputPort = updateCostumerOutputPort;
+        this.updateCustomerOutputPort = updateCustomerOutputPort;
     }
 
     @Override
@@ -26,6 +26,6 @@ public class UpdateCustomerUseCase implements UpdateCustomerInputPort {
         findCustomerByIdInputPort.find(customer.getId());
         Address address = findAddressByZipCodeOutputPort.find(zipCode);
         customer.setAddress(address);
-        updateCostumerOutputPort.update(customer);
+        updateCustomerOutputPort.update(customer);
     }
 }
