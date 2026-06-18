@@ -1,8 +1,6 @@
 package com.joao.hexagonal_architecture_introduction_project.adapters.in.consumer.message;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Data
 @NoArgsConstructor
