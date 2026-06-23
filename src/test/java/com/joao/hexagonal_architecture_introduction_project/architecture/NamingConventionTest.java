@@ -35,7 +35,6 @@ public class NamingConventionTest {
             .resideInAPackage("..adapters.in.consumer.message")
             .as("Message reside only in message package");
 
-
     @ArchTest
     public static final ArchRule controller_reside_only_controller_package = classes()
             .that()
@@ -43,6 +42,14 @@ public class NamingConventionTest {
             .should()
             .resideInAPackage("..adapters.in.controller")
             .as("Controller reside only in controller package");
+
+    @ArchTest
+    public static final ArchRule handler_reside_only_handler_package = classes()
+            .that()
+            .haveNameMatching(".*Handler")
+            .should()
+            .resideInAPackage("..adapters.in.controller.handler")
+            .as("Handler reside only in handler package");
 
     @ArchTest
     public static final ArchRule request_reside_only_request_package = classes()
@@ -97,7 +104,7 @@ public class NamingConventionTest {
             .that()
             .haveNameMatching(".*Exception")
             .should()
-            .resideInAPackage("..application.core.useCase.exception")
+            .resideInAnyPackage("..application.core.useCase.exception", "..application.ports.in.exception")
             .as("Exception reside only in exception package");
 
     @ArchTest
